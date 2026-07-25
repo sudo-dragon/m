@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Happy Birthday, Marwah</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="A handcrafted cinematic birthday journey for Marwah. Elegant animations, gentle interactions, and a peaceful atmosphere.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0b1020">
+
+  <!-- Styling Sheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/sections.css">
+</head>
+<body>
+
+  <!-- Background Animated Canvas -->
+  <canvas id="background-canvas" aria-hidden="true"></canvas>
+  <div id="vignette-overlay" aria-hidden="true"></div>
+  <div id="mouse-light-overlay" aria-hidden="true"></div>
+
+  <!-- Custom Cursor Ring -->
+  <div id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- Floating Music Player -->
+  <div class="music-player" id="music-player-container">
+    <button class="music-player-icon-btn" id="music-play-btn" aria-label="Play ambient music" aria-pressed="false">&#9654;</button>
+
+    <div class="music-details">
+      <span class="music-title">Ambient Rain &amp; Piano</span>
+      <span class="music-artist">Handcrafted Synthesizer</span>
+    </div>
+
+    <div class="volume-container">
+      <label class="visually-hidden" for="music-vol-slider">Music volume</label>
+      <input type="range" class="volume-slider" id="music-vol-slider" min="0" max="1" step="0.05" value="0.5">
+    </div>
+
+    <!-- Equalizer Visualizer animation -->
+    <div class="eq-visualizer" aria-hidden="true">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
+  </div>
+
+  <!-- Slides Container -->
+  <main id="slides-container">
+
+    <!-- 1. Opening Experience -->
+    <section class="slide active" id="slide-opening" aria-label="Opening">
+      <div class="intro-flow">
+        <div class="intro-line active"></div>
+        <div class="intro-text typewriter-cursor reveal-text active" id="intro-text-1">Just a little effort...</div>
+        <div class="intro-text reveal-text" id="intro-text-2">...only for you, Marwah.</div>
+        <div class="intro-text reveal-text" id="intro-text-3">Happy Birthday.</div>
+        <button class="begin-btn" id="btn-begin-journey">Begin Journey</button>
+      </div>
+    </section>
+
+    <!-- 2. Elegant Birthday Welcome -->
+    <section class="slide" id="slide-welcome" aria-label="Welcome">
+      <div class="glass-card welcome-grid">
+        <h1 class="title-main reveal-text">Celebrating <span class="title-italic">Marwah's</span> Day</h1>
+        <p class="text-body reveal-text">
+          Today is a quiet celebration of you. A moment to pause, reflect, and appreciate the wonderful qualities you bring into the world. Welcome to this short, peaceful journey created just for you.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. Things I Admire About You -->
+    <section class="slide" id="slide-admiration" aria-label="Things I admire">
+      <div class="glass-card">
+        <h2 class="title-main reveal-text">Things I Admire</h2>
+        <p class="text-body reveal-text">Not appearance, but the simple character strengths that define how you move through life:</p>
+
+        <div class="admiration-grid">
+          <div class="admire-card reveal-text">
+            <div class="admire-num" aria-hidden="true">01</div>
+            <div class="admire-title">Kindness</div>
+            <p class="text-body admire-text">The quiet, unadvertised ways you make space for others and bring warmth to conversations.</p>
+          </div>
+          <div class="admire-card reveal-text">
+            <div class="admire-num" aria-hidden="true">02</div>
+            <div class="admire-title">Strength</div>
+            <p class="text-body admire-text">Your steady perseverance through challenges, maintaining grace even when things get heavy.</p>
+          </div>
+          <div class="admire-card reveal-text">
+            <div class="admire-num" aria-hidden="true">03</div>
+            <div class="admire-title">Honesty</div>
+            <p class="text-body admire-text">A refreshing sincerity in a world full of noise, staying true to your values and voice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. A Small Birthday Letter -->
+    <section class="slide" id="slide-letter" aria-label="A small letter">
+      <div class="glass-card">
+        <h2 class="title-main reveal-text">A Small Letter</h2>
+        <div class="letter-paper text-poem reveal-text">
+          <p class="letter-line">To Marwah,</p>
+          <p class="letter-line">Birthdays are milestones, but they are also simple reminders of the gift of your existence. I wanted to build this little corner of peace for you today — completely free of noise, expectations, or clutter.</p>
+          <p class="letter-line">You deserve a space that is clean, beautiful, and dedicated solely to wishing you genuine happiness. I hope today gives you time to rest, breathe, and smile.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Interactive Night Sky -->
+    <section class="slide" id="slide-star-sky" aria-label="Interactive night sky">
+      <div class="interactive-instructions">Tap the shining stars to reveal a wish</div>
+
+      <!-- Interactive Container dynamically populated by JS -->
+      <div id="star-sky-interactive-container" style="width: 100%; height: 100%; position: absolute; top:0; left:0;"></div>
+
+      <!-- Floating Wish Box Overlay -->
+      <div id="star-wish-box" role="status" aria-live="polite">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <p class="text-poem" id="star-wish-text" style="font-size: 1.4rem; padding-top: 20px;"></p>
+      </div>
+    </section>
+
+    <!-- 6. Blooming Garden -->
+    <section class="slide" id="slide-garden" aria-label="A growing garden">
+      <div class="slide-bg-art" aria-hidden="true">
+        <img src="assets/images/ghibli_flower.jpg" alt="" loading="lazy">
+      </div>
+      <div class="glass-card" style="position: relative;">
+        <h2 class="title-main reveal-text">A Growing Garden</h2>
+        <p class="text-body reveal-text">
+          Just like flowers that bloom at their own pace, may you have the patience to grow, the courage to change, and the grace to simply be yourself.
+        </p>
+
+        <!-- Interactive SVG Flowers -->
+        <div class="garden-svg-container" aria-hidden="true">
+          <svg viewBox="0 0 400 200" style="width: 100%; max-width: 400px; height: 180px;">
+            <!-- Stem 1 -->
+            <path class="garden-stem" d="M 120 200 Q 110 130 140 80" fill="none" stroke-width="2"/>
+            <path class="garden-leaf" d="M 125 140 Q 100 130 115 120 Z" />
+            <!-- Stem 2 -->
+            <path class="garden-stem" d="M 200 200 Q 210 110 190 60" fill="none" stroke-width="3.5"/>
+            <path class="garden-leaf" d="M 197 120 Q 230 110 205 95 Z" />
+            <!-- Stem 3 -->
+            <path class="garden-stem" d="M 280 200 Q 290 140 260 90" fill="none" stroke-width="2"/>
+            <path class="garden-leaf" d="M 275 145 Q 300 135 285 125 Z" />
+
+            <!-- Flower head 1 -->
+            <g class="garden-flower" transform="translate(140, 80)">
+              <circle cx="0" cy="0" r="10" fill="#f472b6"/>
+              <circle cx="-12" cy="0" r="8" fill="#d8b4fe" opacity="0.8"/>
+              <circle cx="12" cy="0" r="8" fill="#d8b4fe" opacity="0.8"/>
+              <circle cx="0" cy="-12" r="8" fill="#d8b4fe" opacity="0.8"/>
+              <circle cx="0" cy="12" r="8" fill="#d8b4fe" opacity="0.8"/>
+            </g>
+            <!-- Flower head 2 -->
+            <g class="garden-flower" transform="translate(190, 60)">
+              <circle cx="0" cy="0" r="14" fill="#ffd27f"/>
+              <circle cx="-16" cy="-6" r="10" fill="#f472b6" opacity="0.9"/>
+              <circle cx="16" cy="6" r="10" fill="#f472b6" opacity="0.9"/>
+              <circle cx="-6" cy="16" r="10" fill="#f472b6" opacity="0.9"/>
+              <circle cx="6" cy="-16" r="10" fill="#f472b6" opacity="0.9"/>
+            </g>
+            <!-- Flower head 3 -->
+            <g class="garden-flower" transform="translate(260, 90)">
+              <circle cx="0" cy="0" r="8" fill="#a7f3d0"/>
+              <circle cx="-8" cy="-8" r="7" fill="#d8b4fe" opacity="0.75"/>
+              <circle cx="8" cy="8" r="7" fill="#d8b4fe" opacity="0.75"/>
+              <circle cx="8" cy="-8" r="7" fill="#d8b4fe" opacity="0.75"/>
+              <circle cx="-8" cy="8" r="7" fill="#d8b4fe" opacity="0.75"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Overlay for butterflies following cursor -->
+        <div id="garden-butterflies-overlay" aria-hidden="true" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow: hidden;"></div>
+      </div>
+    </section>
+
+    <!-- 7. Gentle Quotes -->
+    <section class="slide" id="slide-quotes" aria-label="A quiet reflection">
+      <div class="glass-card quote-layout">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <p class="text-poem reveal-text">
+          Life is not measured by the speed at which we travel, but by the quiet spaces we allow ourselves to rest and simply exist.
+        </p>
+        <div class="quote-author reveal-text">&mdash; Original Reflection</div>
+      </div>
+    </section>
+
+    <!-- 8. Short Poems -->
+    <section class="slide" id="slide-poem" aria-label="A short poem">
+      <div class="glass-card">
+        <h2 class="title-main reveal-text" style="text-align: center;">Quiet Light</h2>
+        <div class="poem-container text-poem reveal-text">
+          <p>The stars align without a sound,</p>
+          <p>A quiet grace in orbits found.</p>
+          <p>May you drift gently through the night,</p>
+          <p>And wake to find your burdens light.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Dreamy Snapshots -->
+    <section class="slide" id="slide-polaroids" aria-label="Dreamy snapshots">
+      <div class="glass-card">
+        <h2 class="title-main reveal-text" style="text-align: center;">Dreamy Snapshots</h2>
+        <p class="text-body reveal-text" style="text-align: center; margin-bottom: 20px;">A collection of calm, slow moments:</p>
+
+        <div class="polaroids-wrapper reveal-text">
+          <!-- Polaroid 1 -->
+          <div class="polaroid-frame" tabindex="0" style="--rotation: -4deg;">
+            <div class="polaroid-image-placeholder">
+              <img class="polaroid-image" src="assets/images/ghibli_flower.jpg" alt="Watercolor field of wildflowers at golden hour" loading="lazy">
+            </div>
+            <div class="polaroid-caption">Wildflowers</div>
+          </div>
+          <!-- Polaroid 2 -->
+          <div class="polaroid-frame" tabindex="0" style="--rotation: 3deg;">
+            <div class="polaroid-image-placeholder">
+              <img class="polaroid-image" src="assets/images/dreamy_sea.jpg" alt="A full moon glowing over a calm night sea" loading="lazy">
+            </div>
+            <div class="polaroid-caption">Moonlit Sea</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Dreams and Future -->
+    <section class="slide" id="slide-dreams" aria-label="Hopes for your path">
+      <div class="glass-card">
+        <h2 class="title-main reveal-text">Hopes For Your Path</h2>
+        <p class="text-body reveal-text">
+          As you step forward into another year, my hope for you is simple:
+          may your choices be yours, and yours alone. May you find clarity in confusing moments,
+          warmth in cold intervals, and the quiet satisfaction of growing into exactly who you wish to be.
+        </p>
+      </div>
+    </section>
+
+    <!-- 11. A Respectful Note -->
+    <section class="slide" id="slide-respect" aria-label="Without expectation">
+      <div class="glass-card" style="text-align: center; max-width: 600px;">
+        <h2 class="title-main reveal-text">Without Expectation</h2>
+        <p class="text-poem reveal-text" style="font-size: 1.35rem; line-height: 1.8;">
+          "I don't expect anything from you.<br>
+          This website is simply my birthday gift.<br>
+          Your peace and happiness matter far more than any answer."
+        </p>
+      </div>
+    </section>
+
+    <!-- 12. Birthday Wish Wall -->
+    <section class="slide" id="slide-wish-wall" aria-label="The wish wall">
+      <div class="glass-card" style="height: 90%; max-height: 600px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <h2 class="title-main reveal-text" style="margin-bottom: 8px;">The Wish Wall</h2>
+          <p class="text-body reveal-text">Leave a wish, pin it, and move the notes around freely.</p>
+        </div>
+
+        <!-- Sticky notes board -->
+        <div id="wish-wall-board" role="group" aria-label="Sticky note board"></div>
+
+        <!-- Input controls -->
+        <div class="wish-wall-controls">
+          <label class="visually-hidden" for="add-wish-input">Write a wish</label>
+          <input type="text" class="wish-input" id="add-wish-input" placeholder="Type a quiet wish..." maxlength="45">
+          <button class="wish-submit-btn" id="add-wish-btn">Pin Note</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Final Moon Scene -->
+    <section class="slide" id="slide-final" aria-label="Closing scene">
+      <div class="slide-bg-art" aria-hidden="true">
+        <img src="assets/images/dreamy_sea.jpg" alt="" loading="lazy">
+      </div>
+      <div class="final-moon-container">
+        <!-- Breathtaking glowing moon -->
+        <div id="glowing-moon" aria-hidden="true"></div>
+
+        <div class="glass-card" style="max-width: 680px; text-align: center;">
+          <p class="text-poem reveal-text" style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 20px;">
+            Thank you for spending a few minutes here, Marwah.
+          </p>
+          <p class="text-poem reveal-text" style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 20px;">
+            May your life always be filled with peace, laughter, kind people, beautiful memories, and moments that make you smile. Wherever life takes you, I sincerely hope it is gentle with you.
+          </p>
+          <p class="text-poem reveal-text" style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 20px;">
+            Take all the time you ever need for yourself. Your choices will always be respected.
+          </p>
+          <p class="text-poem reveal-text" style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 20px;">
+            If someday life gives us a chance to know each other better, I would genuinely appreciate it. And if life chooses a different path, I will still be grateful that I got to wish you a happy birthday today.
+          </p>
+          <p class="text-poem reveal-text" style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 25px;">
+            Thank you for being you. Happy Birthday, Marwah.
+          </p>
+
+          <div class="final-signature reveal-text">&mdash; From someone who genuinely cares.</div>
+
+          <button class="restart-btn" id="restart-journey-btn">Restart Journey</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation & Progress Bar -->
+  <nav id="journey-controls-bar" aria-label="Journey navigation">
+    <div class="journey-progress-container" id="progress-bar-container">
+      <!-- Generated Dynamically by JS -->
+    </div>
+
+    <div class="controls-buttons-row">
+      <button class="control-btn" id="ctrl-prev" aria-label="Previous scene">Prev</button>
+      <button class="control-btn play-pause-btn" id="ctrl-play-pause" aria-label="Pause slideshow" aria-pressed="true">&#9611;&#9611;</button>
+      <button class="control-btn" id="ctrl-next" aria-label="Next scene">Next</button>
+    </div>
+  </nav>
+
+  <!-- Script Modules -->
+  <script src="js/audio.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/sections.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

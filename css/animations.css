@@ -1,0 +1,199 @@
+/* css/animations.css */
+
+/* Custom Cursor Trail Particles */
+@keyframes particleFade {
+  0% {
+    opacity: 0.8;
+    transform: translate(0, 0) scale(1);
+    filter: drop-shadow(0 0 2px var(--color-primary));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), var(--y, 0px)) scale(0.1);
+  }
+}
+
+/* ---------------------------------------------------
+   Cinematic slide transitions — several distinct moods
+   so consecutive scenes never repeat the same motion.
+--------------------------------------------------- */
+
+.slide-entering { animation-fill-mode: forwards; animation-duration: 1.4s; animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1); }
+.slide-leaving  { animation-fill-mode: forwards; animation-duration: 1.1s; animation-timing-function: cubic-bezier(0.4, 0, 1, 1); }
+
+/* Variant: soft blur drift (default / dreamy) */
+.transition-blur.slide-entering { animation-name: cinematicEnterBlur; }
+.transition-blur.slide-leaving  { animation-name: cinematicLeaveBlur; }
+
+@keyframes cinematicEnterBlur {
+  0%   { opacity: 0; filter: blur(15px); transform: scale(1.06) translateY(10px); }
+  100% { opacity: 1; filter: blur(0px);  transform: scale(1) translateY(0); }
+}
+@keyframes cinematicLeaveBlur {
+  0%   { opacity: 1; filter: blur(0px);  transform: scale(1) translateY(0); }
+  100% { opacity: 0; filter: blur(12px); transform: scale(0.94) translateY(-10px); }
+}
+
+/* Variant: rise from below */
+.transition-rise.slide-entering { animation-name: cinematicEnterRise; }
+.transition-rise.slide-leaving  { animation-name: cinematicLeaveRise; }
+
+@keyframes cinematicEnterRise {
+  0%   { opacity: 0; transform: translateY(4%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes cinematicLeaveRise {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-3%); }
+}
+
+/* Variant: gentle horizontal drift */
+.transition-drift.slide-entering { animation-name: cinematicEnterDrift; }
+.transition-drift.slide-leaving  { animation-name: cinematicLeaveDrift; }
+
+@keyframes cinematicEnterDrift {
+  0%   { opacity: 0; transform: translateX(3%) scale(1.02); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes cinematicLeaveDrift {
+  0%   { opacity: 1; transform: translateX(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-3%) scale(0.99); }
+}
+
+/* Variant: soft bloom (scale + fade only, no blur — cheapest, used on lower-end frames) */
+.transition-bloom.slide-entering { animation-name: cinematicEnterBloom; }
+.transition-bloom.slide-leaving  { animation-name: cinematicLeaveBloom; }
+
+@keyframes cinematicEnterBloom {
+  0%   { opacity: 0; transform: scale(0.97); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes cinematicLeaveBloom {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.02); }
+}
+
+/* Floating animation */
+.float-slow {
+  animation: floatSlow 8s ease-in-out infinite alternate;
+}
+
+.float-medium {
+  animation: floatSlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  100% {
+    transform: translateY(4px) rotate(-1deg);
+  }
+}
+
+/* Glowing Pulsation */
+.glow-pulse {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px 2px rgba(192, 132, 252, 0.15), var(--glass-shadow);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+  50% {
+    box-shadow: 0 0 30px 6px rgba(244, 114, 182, 0.25), var(--glass-shadow);
+    border-color: rgba(244, 114, 182, 0.2);
+  }
+}
+
+/* Typewriter cursor blinking */
+.typewriter-cursor::after {
+  content: '|';
+  animation: caretBlink 1s infinite step-end;
+  color: var(--color-accent);
+}
+
+@keyframes caretBlink {
+  from, to { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Title Line Drawing */
+@keyframes drawLine {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 120px;
+    opacity: 0.7;
+  }
+}
+
+/* Text Scroll Reveal */
+.reveal-text {
+  opacity: 0;
+  transform: translateY(15px);
+  filter: blur(5px);
+  transition: opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 1.1s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 1.1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-text.active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+/* Butterfly Wing Flap */
+@keyframes wingFlap {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.2) skewY(-5deg);
+  }
+}
+
+/* Ripple Click Scaling */
+.click-ripple {
+  position: fixed;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(216, 180, 254, 0.3) 0%, rgba(244, 112, 180, 0) 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleOut 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  z-index: 99999;
+}
+
+@keyframes rippleOut {
+  to {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+/* Music Equalizer Bar Jump */
+@keyframes eqJump {
+  0%, 100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Fade in quick */
+.fade-in-quick {
+  animation: fadeInQuick 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes fadeInQuick {
+  0% { opacity: 0; transform: translateY(5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
